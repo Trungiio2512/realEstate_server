@@ -1,5 +1,5 @@
 "use strict";
-const dev = {
+const development = {
   app: {
     port: process.env.PORT_DEV || 8888,
   },
@@ -22,8 +22,7 @@ const production = {
   },
 };
 
-const config = { dev, production };
+const config = { development, production };
 
-const env = process.env.ENVIRONMENT || "dev";
-
+const env = process.env.NODE_ENV || "development";
 module.exports = config[env];

@@ -2,7 +2,7 @@ const { Sequelize } = require("sequelize");
 
 const {
   db: { database, username, password, host, dialect },
-} = require("../configs/db");
+} = require("../config/db");
 
 class connectDatabase {
   constructor() {

@@ -1,7 +1,7 @@
 const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
-const corsOptions = require("./src/configs/cors");
+const corsOptions = require("./src/config/cors");
 require("dotenv").config();
 
 /** check connect db

@@ -45,7 +45,7 @@ const startServer = () => {
     });
   });
 
-  const port = process.env.PORT || 8888;
+  const port = process.env.PORT_DEV || 8888;
   app.listen(port, () => {
     console.log("server listening on port ", port);
   });
@@ -54,10 +54,15 @@ const startServer = () => {
     server.close(() => console.log("Exit sever express"));
   });
 };
+
 (() => {
   try {
+    console.log("1: starting connect database");
+    require("./src/db/connect");
+    console.log("2: connected to database");
     startServer();
   } catch (error) {
+    console.log("not connected db");
     process.on("", () => {
       server.close(() => console.log("Exit sever express"));
     });

@@ -8,6 +8,7 @@ const development = {
     database: process.env.DB_NAME_DEV || "realestate",
     username: process.env.DB_DATABASE_DEV || "postgres",
     password: process.env.DB_PASSWD_DEV,
+    host: process.env.DB_HOST_DEV,
   },
 };
 const production = {
@@ -19,6 +20,7 @@ const production = {
     database: process.env.DB_NAME_PROD,
     username: process.env.DB_DATABASE_PROD,
     password: process.env.DB_PASSWD_PROD,
+    host: process.env.DB_HOST_PROD,
   },
 };
 

@@ -24,9 +24,7 @@ const startServer = () => {
   );
 
   // !router
-  app.use("/", (req, res, next) => {
-    return res.send("ok");
-  });
+  app.use("/", require("./src/routers"));
   // !when router error
   app.use((req, res, next) => {
     const error = new Error("Not Found");
@@ -62,7 +60,7 @@ const startServer = () => {
     console.log("2: connected to database");
     startServer();
   } catch (error) {
-    console.log("not connected db");
+    console.log(error);
     process.on("", () => {
       server.close(() => console.log("Exit sever express"));
     });

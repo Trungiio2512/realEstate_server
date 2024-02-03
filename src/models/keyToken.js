@@ -1,7 +1,9 @@
 "use strict";
 const { Model } = require("sequelize");
+const bcrypt = require("bcrypt");
+
 module.exports = (sequelize, DataTypes) => {
-  class Role extends Model {
+  class KeyToken extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,15 +13,18 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Role.init(
+  KeyToken.init(
     {
-      code: DataTypes.INTEGER,
-      value: DataTypes.STRING,
+      userId: DataTypes.STRING,
+      refreshToken: DataTypes.STRING,
+      publicKey: DataTypes.STRING,
+      privateKey: DataTypes.STRING,
+      refreshTokenUsed: DataTypes.ARRAY(DataTypes.STRING),
     },
     {
       sequelize,
-      modelName: "Role",
+      modelName: "KeyToken",
     }
   );
-  return Role;
+  return KeyToken;
 };

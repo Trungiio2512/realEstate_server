@@ -8,7 +8,7 @@ module.exports = {
         // autoIncrement: true,
         primaryKey: true,
         type: Sequelize.UUID,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
       firstName: {
         type: Sequelize.STRING,
@@ -18,15 +18,18 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
+        unique: true,
       },
       phone: {
         type: Sequelize.STRING,
+        unique: true,
       },
       password: {
         type: Sequelize.STRING,
       },
       role: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.ENUM(["admin", "agent", "user"]),
+        defaultValue: "user",
       },
       avatar: {
         type: Sequelize.STRING,

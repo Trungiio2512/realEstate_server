@@ -1,8 +1,11 @@
-const { SuccessResponse } = require("../helpers/sucessResponse");
-const { resgister } = require("../services/access_service");
+const { SuccessResponse, Created } = require("../helpers/sucessResponse");
+const AccessService = require("../services/access_service");
 class AccessController {
   static async register(req, res) {
-    new SuccessResponse({ metadata: await resgister(req.body) }).send(res);
+    new Created({ metadata: await AccessService.resgister(req.body) }).send(res);
+  }
+  static async signin(req, res) {
+    new SuccessResponse({ metadata: await AccessService.signin(req.body) }).send(res);
   }
 }
 

@@ -14,7 +14,7 @@ const email = Joi.string()
 const password = Joi.string().trim().min(3).pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"));
 const passworConfirmation = Joi.any().valid(Joi.ref("password")).optional();
 
-const role = Joi.number().required();
+const role = Joi.string().required();
 
 const registerJoi = Joi.object().keys({
   email,
@@ -26,6 +26,12 @@ const registerJoi = Joi.object().keys({
   phone,
 });
 
+const signinJoi = Joi.object().keys({
+  phone,
+  password,
+});
+
 module.exports = {
   registerJoi,
+  signinJoi,
 };

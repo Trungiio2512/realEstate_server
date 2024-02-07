@@ -12,14 +12,13 @@ const email = Joi.string()
   .email({ minDomainSegments: 2, tlds: { allow: ["com", "net"] } });
 
 const password = Joi.string().trim().min(3).pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"));
-const passworConfirmation = Joi.any().valid(Joi.ref("password")).optional();
+const confirmPassword = Joi.any().valid(Joi.ref("password")).optional();
 
 const role = Joi.string().required();
 
 const registerJoi = Joi.object().keys({
-  email,
   password,
-  passworConfirmation,
+  confirmPassword,
   role,
   fisrtName,
   lastName,

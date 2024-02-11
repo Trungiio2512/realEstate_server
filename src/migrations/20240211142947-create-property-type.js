@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("KeyTokens", {
+    await queryInterface.createTable("PropertyTypes", {
       id: {
         allowNull: false,
         // autoIncrement: true,
@@ -10,26 +10,17 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
-      userId: {
-        type: Sequelize.UUID,
-        references: {
-          model: "Users",
-          key: "id",
-        },
-      },
-      refreshToken: {
+      name: {
         type: Sequelize.STRING,
+        allowNull: false,
       },
-      publicKey: {
+      description: {
+        type: Sequelize.TEXT,
+        allowNull: false,
+      },
+      image: {
         type: Sequelize.STRING,
-      },
-      privateKey: {
-        type: Sequelize.STRING,
-        unique: true,
-      },
-      refreshTokenUsed: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        defaultValue: [],
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +33,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("KeyTokens");
+    await queryInterface.dropTable("PropertyTypes");
   },
 };

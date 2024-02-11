@@ -11,13 +11,12 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.KeyToken, { foreignKey: "userId", as: "userKeyToken" });
+      // User.hasOne(models.KeyToken, { foreignKey: "userId", as: "userKeyToken" });
     }
   }
   User.init(
     {
-      firstName: DataTypes.STRING,
-      lastName: DataTypes.STRING,
+      name: DataTypes.STRING,
       email: DataTypes.STRING,
       phone: DataTypes.STRING,
       password: {
@@ -28,9 +27,8 @@ module.exports = (sequelize, DataTypes) => {
           this.setDataValue("password", hash);
         },
       },
-      role: {
-        type: DataTypes.ENUM,
-        values: ["admin", "agent", "user"],
+      roleCode: {
+        type: DataTypes.STRING,
       },
       avatar: DataTypes.STRING,
       address: DataTypes.STRING,

@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("KeyTokens", {
+    await queryInterface.createTable("Roles", {
       id: {
         allowNull: false,
         // autoIncrement: true,
@@ -10,26 +10,15 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.literal("gen_random_uuid()"),
       },
-      userId: {
-        type: Sequelize.UUID,
-        references: {
-          model: "Users",
-          key: "id",
-        },
-      },
-      refreshToken: {
-        type: Sequelize.STRING,
-      },
-      publicKey: {
-        type: Sequelize.STRING,
-      },
-      privateKey: {
+
+      code: {
         type: Sequelize.STRING,
         unique: true,
+        allowNull: false,
       },
-      refreshTokenUsed: {
-        type: Sequelize.ARRAY(Sequelize.STRING),
-        defaultValue: [],
+      value: {
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -42,6 +31,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable("KeyTokens");
+    await queryInterface.dropTable("Roles");
   },
 };

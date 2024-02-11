@@ -11,16 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      KeyToken.belongsTo(models.User, {
-        foreignKey: "userId",
-        targetKey: "id",
-        as: "userKeyToken",
-      });
+      // KeyToken.belongsTo(models.User, {
+      //   foreignKey: "userId",
+      //   targetKey: "id",
+      //   as: "userKeyToken",
+      // });
     }
   }
   KeyToken.init(
     {
-      userId: DataTypes.STRING,
+      userId: DataTypes.UUID,
       refreshToken: DataTypes.STRING,
       publicKey: DataTypes.STRING,
       privateKey: DataTypes.STRING,

@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const corsOptions = require("./src/config/cors");
+const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
 /** check connect db
@@ -14,6 +15,8 @@ const startServer = () => {
   // !cors config
   app.use(cors(corsOptions));
 
+  // !cookie store
+  app.use(cookieParser());
   // !init config
   app.use(helmet());
   app.use(express.json());
@@ -48,9 +51,9 @@ const startServer = () => {
     console.log("server listening on port ", port);
   });
 
-  process.on("SIGINT", () => {
-    server.close(() => console.log("Exit sever express"));
-  });
+  // process.on("SIGINT", () => {
+  //   server.close(() => console.log("Exit sever express"));
+  // });
 };
 
 (() => {
@@ -61,7 +64,7 @@ const startServer = () => {
     startServer();
   } catch (error) {
     console.log(error);
-    process.on("", () => {
+    process.on("SIGINT", () => {
       server.close(() => console.log("Exit sever express"));
     });
   }

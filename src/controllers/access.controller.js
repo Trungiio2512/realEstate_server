@@ -5,7 +5,15 @@ class AccessController {
     new Created({ metadata: await AccessService.resgister(req.body) }).send(res);
   }
   static async signin(req, res) {
-    new SuccessResponse({ metadata: await AccessService.signin(req.body) }).send(res);
+    const data = await AccessService.signin(req.body);
+    const { refreshToken, ...passData } = data;
+    res.cookie("REFRESH_TOKEN", refreshToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+    });
+    new SuccessResponse({ metadata: passData }).send(res);
   }
 }
 

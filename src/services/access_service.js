@@ -1,9 +1,10 @@
 const db = require("../models");
 const { Op } = require("sequelize");
-const { ErrorResponse, Unauthorized } = require("../helpers/errorResponse");
+const { ErrorResponse, Unauthorized, ServerErorr } = require("../helpers/errorResponse");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const { createToken } = require("../utils/jsonwebtoken");
+const { createToken } = require("../middleware/jsonwebtoken");
+const { getTokenPair, createTokenPair } = require("./keyToken_service");
 class AccessService {
   static resgister = async (payload) => {
     const { phone, password, role } = payload;
@@ -13,14 +14,17 @@ class AccessService {
     const [user, created] = await db.User.findOrCreate({
       where: { phone },
       defaults: {
-        ...payload,
+        phone,
+        password,
+        role,
       },
     });
     if (!created) {
       throw new ErrorResponse("User has existing");
     }
-    return user;
+    return { created };
   };
+
   static signin = async (payload) => {
     const { phone, password } = payload;
     const user = await db.User.findOne({ where: { phone } });
@@ -39,8 +43,19 @@ class AccessService {
     const publicKey = crypto.randomBytes(64).toString("hex");
     const privateKey = crypto.randomBytes(64).toString("hex");
 
-    const tokens = await createToken({ uid: user?.id }, publicKey, privateKey);
-    return { user, tokens };
+    const { accessToken, refreshToken } = await createToken(
+      { uid: user?.id },
+      publicKey,
+      privateKey
+    );
+
+    const data = await createTokenPair(user.id, publicKey, privateKey, refreshToken);
+    // const data = await getTokenPair(user.id);
+    if (!data) {
+      throw new ServerErorr("Cannot set token pair");
+    }
+
+    return { user, token: accessToken, refreshToken, data };
   };
 }
 

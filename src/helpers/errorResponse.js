@@ -13,7 +13,28 @@ class Unauthorized extends ErrorResponse {
   }
 }
 
+class Forbidden extends ErrorResponse {
+  constructor(message = ReasonPhrases.FORBIDDEN, status = StatusCodes.FORBIDDEN) {
+    super(message, status);
+  }
+}
+class ServerErorr extends ErrorResponse {
+  constructor(
+    message = ReasonPhrases.INTERNAL_SERVER_ERROR,
+    status = StatusCodes.INTERNAL_SERVER_ERROR
+  ) {
+    super(message, status);
+  }
+}
+class NotFound extends ErrorResponse {
+  constructor(message = ReasonPhrases.NOT_FOUND, status = StatusCodes.NOT_FOUND) {
+    super(message, status);
+  }
+}
 module.exports = {
   ErrorResponse,
   Unauthorized,
+  Forbidden,
+  ServerErorr,
+  NotFound,
 };

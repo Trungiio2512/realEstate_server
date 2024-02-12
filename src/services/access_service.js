@@ -1,22 +1,21 @@
 const db = require("../models");
 const { Op } = require("sequelize");
-const { ErrorResponse, Unauthorized, ServerErorr } = require("../helpers/errorResponse");
+const { ErrorResponse, Unauthorized, ServerErorr, Forbidden } = require("../helpers/errorResponse");
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const { createToken } = require("../middleware/jsonwebtoken");
 const { getTokenPair, createTokenPair } = require("./keyToken_service");
+const { roles } = require("../utils/contants");
 class AccessService {
   static resgister = async (payload) => {
-    const { phone, password, role } = payload;
-    if (role === "admin") {
-      throw new ErrorResponse("You are not allowed to register");
-    }
+    const { phone, password, roleCode } = payload;
+    if (roleCode === "ROL1") throw new Forbidden("Role code not allowed");
     const [user, created] = await db.User.findOrCreate({
       where: { phone },
       defaults: {
         phone,
         password,
-        role,
+        roleCode,
       },
     });
     if (!created) {
@@ -42,9 +41,9 @@ class AccessService {
     //=> return data with access token and refresh token save in cookie
     const publicKey = crypto.randomBytes(64).toString("hex");
     const privateKey = crypto.randomBytes(64).toString("hex");
-
+    console.log(publicKey);
     const { accessToken, refreshToken } = await createToken(
-      { uid: user?.id },
+      { uid: user?.id, roleCode: user?.roleCode, phone: user?.phone },
       publicKey,
       privateKey
     );
@@ -55,7 +54,12 @@ class AccessService {
       throw new ServerErorr("Cannot set token pair");
     }
 
-    return { user, token: accessToken, refreshToken, data };
+    return { user, token: accessToken, refreshToken };
+  };
+  static insert = async (payload) => {
+    const data = await db.Role.bulkCreate(payload);
+
+    return { data };
   };
 }
 

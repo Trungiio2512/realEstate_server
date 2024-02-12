@@ -27,11 +27,11 @@ module.exports = {
       },
       roleCode: {
         type: Sequelize.STRING,
-        allowNull: false,
         references: {
           model: "Roles",
           key: "code",
         },
+        defaultValue: "ROL4",
       },
       avatar: {
         type: Sequelize.STRING,

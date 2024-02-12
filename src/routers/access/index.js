@@ -8,5 +8,6 @@ const router = express.Router();
 
 router.post("/register", validate(registerJoi), errorHandler(AccessController.register));
 router.post("/signin", validate(signinJoi), errorHandler(AccessController.signin));
+router.post("/insert", errorHandler(AccessController.insert));
 
 module.exports = router;

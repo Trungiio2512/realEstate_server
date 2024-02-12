@@ -14,6 +14,8 @@ const createTokenPair = async (userId, publicKey, privateKey, refreshToken) => {
   } else {
     res = await db.KeyToken.update(
       {
+        publicKey,
+        privateKey,
         refreshToken,
         refreshTokenUsed: sequelize.fn(
           "array_append",

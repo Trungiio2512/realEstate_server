@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   PropertyType.init(
     {
       name: DataTypes.STRING,
-      descripton: DataTypes.TEXT,
+      description: DataTypes.TEXT,
       image: DataTypes.STRING,
     },
     {

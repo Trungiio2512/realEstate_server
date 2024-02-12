@@ -38,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       featureImage: DataTypes.STRING,
       postedBy: DataTypes.UUID,
+      owner: DataTypes.UUID,
       bedRoom: DataTypes.INTEGER,
       bathRoom: DataTypes.INTEGER,
       propertySize: DataTypes.FLOAT,

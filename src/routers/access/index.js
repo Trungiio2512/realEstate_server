@@ -1,5 +1,5 @@
 const express = require("express");
-const errorHandler = require("../../helpers/errorHandler");
+const errorHandler = require("../../middleware/errorHandler");
 const AccessController = require("../../controllers/access.controller");
 const { validate } = require("../../middleware/validation");
 const { registerJoi, signinJoi } = require("../../utils/JoiSchema");

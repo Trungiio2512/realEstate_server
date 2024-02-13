@@ -5,7 +5,7 @@ class PropertyTypeController {
     new Created({ metadata: await PropertyTypeService.create(req.body) }).send(res);
   }
   static async gets(req, res) {
-    new Created({ metadata: await PropertyTypeService.gets(req.query) }).send(res);
+    new SuccessResponse({ metadata: await PropertyTypeService.gets(req.query) }).send(res);
   }
 }
 

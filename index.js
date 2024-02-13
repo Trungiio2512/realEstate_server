@@ -3,6 +3,7 @@ const helmet = require("helmet");
 const cors = require("cors");
 const corsOptions = require("./src/config/cors");
 const cookieParser = require("cookie-parser");
+const { redisConnect } = require("./src/config/redis.config");
 require("dotenv").config();
 
 /** check connect db
@@ -56,11 +57,15 @@ const startServer = () => {
   // });
 };
 
-(() => {
+(async () => {
   try {
-    console.log("1: starting connect database");
-    require("./src/db/connect");
+    console.log("1: starting connect database.......");
+    await require("./src/db/connect");
     console.log("2: connected to database");
+    console.log("3: starting connect to redis.......");
+    await redisConnect();
+    console.log("4: connected to redis");
+
     startServer();
   } catch (error) {
     console.log(error);

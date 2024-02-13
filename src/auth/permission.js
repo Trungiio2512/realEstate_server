@@ -1,4 +1,4 @@
-const errorHandler = require("../helpers/errorHandler");
+const errorHandler = require("../middleware/errorHandler");
 const { Unauthorized } = require("../helpers/errorResponse");
 const db = require("../models");
 const permission = (permissions) => {

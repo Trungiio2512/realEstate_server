@@ -1,4 +1,4 @@
-const errorHandler = require("../helpers/errorHandler");
+const errorHandler = require("../middleware/errorHandler");
 const { Forbidden, NotFound } = require("../helpers/errorResponse");
 const db = require("../models");
 const { getTokenPair } = require("../services/keyToken_service");

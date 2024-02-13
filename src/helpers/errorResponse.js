@@ -12,7 +12,11 @@ class Unauthorized extends ErrorResponse {
     super(message, status);
   }
 }
-
+class GetwayTimeout extends ErrorResponse {
+  constructor(message = ReasonPhrases.GATEWAY_TIMEOUT, status = StatusCodes.GATEWAY_TIMEOUT) {
+    super(message, status);
+  }
+}
 class Forbidden extends ErrorResponse {
   constructor(message = ReasonPhrases.FORBIDDEN, status = StatusCodes.FORBIDDEN) {
     super(message, status);
@@ -37,4 +41,5 @@ module.exports = {
   Forbidden,
   ServerErorr,
   NotFound,
+  GetwayTimeout,
 };
